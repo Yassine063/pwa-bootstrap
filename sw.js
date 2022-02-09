@@ -5,7 +5,7 @@ this.addEventListener('install', function(event) {
 
       
           '/pwa-bootstrap/index.html',
-          '/pwa-bootstrap/index.js',
+          '/pwa-bootstrap/page hors connexion.html',
           '/pwa-bootstrap/mobile2.jpg',
           '/pwa-bootstrap/ordinateur.png',
           '/pwa-bootstrap/tablettes.jpg',
