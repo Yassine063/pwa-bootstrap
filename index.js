@@ -1,68 +1,39 @@
-"use strict";
-
-const notificationButton = document.getElementById("enableNotifications");
-let swRegistration = null;
-
-initializeApp();
-
-function initializeApp() {
-  if ("serviceWorker" in navigator && "PushManager" in window) {
-    console.log("Service Worker and Push is supported");
-
-    //Register the service worker
-    navigator.serviceWorker
-      .register("../../sw.js")
-      .then(swReg => {
-        console.log("Service Worker is registered", swReg);
-
-        swRegistration = swReg;
-        initializeUi();
-      })
-      .catch(error => {
-        console.error("Service Worker Error", error);
-      });
-  } else {
-    console.warn("Push messaging is not supported");
-    notificationButton.textContent = "Push Not Supported";
-  }
+if ('serviceWorker' in navigator) {
+    // Register a service worker hosted at the root of the
+    // site using the default scope.
+    navigator.serviceWorker.register('sw.js').then(
+        (registration) => {
+            console.log('Service worker registration succeeded:', registration)
+        },
+      /*catch*/(error) => {
+            console.log('Service worker registration failed:', error)
+        }
+    )
+} else {
+    console.log('Service workers are not supported.')
 }
 
-function initializeUi() {
-  notificationButton.addEventListener("click", () => {
-    displayNotification();
-  });
-}
 
-function displayNotification() {
-  if (window.Notification && Notification.permission === "granted") {
-    notification();
-  }
-  // If the user hasn't told if he wants to be notified or not
-  // Note: because of Chrome, we are not sure the permission property
-  // is set, therefore it's unsafe to check for the "default" value.
-  else if (window.Notification && Notification.permission !== "denied") {
-    Notification.requestPermission(status => {
-      if (status === "granted") {
-        notification();
-      } else {
-        alert("You denied or dismissed permissions to notifications.");
-      }
+function meNotifier() {
+    Notification.requestPermission().then(function (result) {
+        console.log("permission donnée");
     });
-  } else {
-    // If the user refuses to get notified
-    alert(
-      "You denied permissions to notifications. Please go to your browser or phone setting to allow notifications."
-    );
-  }
 }
 
-function notification() {
-  const options = {
-    body: "Testing Our Notification",
-    icon: "./bell.png"
-  };
-  swRegistration.showNotification("PWA Notification!", options);
+function envoyerNotificationThreadUtilisateur() {
+    if (Notification.permission === 'granted') {
+        var options = {
+            body: 'Ma première notification depuis index.js',
+            requireInteraction: true
+        };
+
+        const notification = new Notification('Hello depuis index.js', options);
+    } else {
+        console.log("aucune notification car non permis");
+    }
 }
+
+
 
 
 // lancer toast au demarage de mon API
