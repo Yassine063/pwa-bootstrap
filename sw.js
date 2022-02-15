@@ -46,7 +46,7 @@ return caches.open('v1').then(function (cache) {
 }
 
 function fallbackVersPageHorsLigne() {
-return caches.match("/pageHorsConnexion.html");
+return caches.match("/pwa-bootstarp/pageHorsConnexion.html");
 }
 
 
