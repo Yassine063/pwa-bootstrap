@@ -52,52 +52,40 @@ return caches.match("/pwa-bootstrap/pageHorsConnexion.html");
 }
 
 
-// self.addEventListener('push', function (e) {
-//   console.log("push recu: " + e);
-//   envoyerNotification();
-// });
+self.addEventListener('push', function (e) {
+  console.log("push recu: " + e);
+  envoyerNotification();
+});
 
 
-// function envoyerNotification() {
-//   if (Notification.permission === 'granted') {
-//       var options = {
-//           body: 'Ma première notification',
-//           requireInteraction: true
-//       };
+function envoyerNotification() {
+  if (Notification.permission === 'granted') {
+      var options = {
+          body: 'Ma première notification',
+          requireInteraction: true
+      };
 
-//       self.registration.showNotification('Hello', options);
-//   } else {
-//       console.log("aucune notification car non permis");
-//   }
-// } 
-
-
-
-// var button = document.getElementById("notifications");
-// button.addEventListener('click', function(e) {
-//     Notification.requestPermission().then(function(result) {
-//         if(result === 'granted') {
-//             randomNotification();
-//         }
-//     });
-// });
+      self.registration.showNotification('Hello', options);
+  } else {
+      console.log("aucune notification car non permis");
+  }
+} 
 
 
+  this.addEventListener('fetch', function(event) {
 
-  // this.addEventListener('fetch', function(event) {
+    console.log("Fetching ..." + event.request.url);
 
-  //   console.log("Fetching ..." + event.request.url);
-
-  //   event.respondWith(caches.match(event.request).then(function(response) {
+    event.respondWith(caches.match(event.request).then(function(response) {
       
-  //     if (response !== undefined) {
-  //       return response;
-  //     } else {
+      if (response !== undefined) {
+        return response;
+      } else {
 
-  //       console.log("Fetching from fetch ..." + event.request.url);
+        console.log("Fetching from fetch ..." + event.request.url);
 
-  //       return fetch(event.request);
-  //     }
-  //   }));
-  // });
+        return fetch(event.request);
+      }
+    }));
+  });
   
