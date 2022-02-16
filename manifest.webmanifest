@@ -3,7 +3,7 @@
     "background_color": "#d0beae",
     "display": "standalone",
     "scope": "/pwa-bootstrap/",
-    "start_url": "/pwa-bootstrap/index.html",
+    "start_url": "index.html",
     "name": "Techno-Mobile",
     "short_name": "T-M",
     "description": "site de vente appareils \\u00e9l\\u00e9ctroniques (mobile-tablette-ordinateur) neuf",

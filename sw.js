@@ -3,7 +3,7 @@ this.addEventListener('install', function(event) {
       caches.open('v1').then(function(cache) {
         return cache.addAll([
 
-         
+        
           '/pwa-bootstrap/index.js',
           '/pwa-bootstrap/index.html',
           '/pwa-bootstrap/pageHorsConnexion.html',
@@ -33,20 +33,22 @@ this.addEventListener('install', function(event) {
 });
 
 
-function cacheOrNetwork(request) {
-return fromCache(request).catch(() => fetch(request));
+async function cacheOrNetwork(request) {
+  try {
+    return await fromCache(request);
+  } catch {
+    return await fetch(request);
+  }
 };
 
-function fromCache(request) {
-return caches.open('v1').then(function (cache) {
-  return cache.match(request).then(function (matching) {
-    return matching || Promise.reject('no-match');
-  });
-});
+async function fromCache(request) {
+  const cache = await caches.open('v1');
+  const matching = await cache.match(request);
+  return matching || Promise.reject('no-match');
 }
 
 function fallbackVersPageHorsLigne() {
-return caches.match("/pwa-bootstarp/pageHorsConnexion.html");
+return caches.match("/pwa-bootstrap/pageHorsConnexion.html");
 }
 
 
